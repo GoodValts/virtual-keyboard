@@ -103,4 +103,12 @@ body {
   color: #6991c7;
 }
 
+.pressed {
+  background-image: linear-gradient(to bottom, #d4fc79 0%, #96e6a1 100%);
+}
+
+.toUpperCase {
+  text-transform: uppercase;
+}
+
 /*# sourceMappingURL=styles.css.map */
