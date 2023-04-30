@@ -86,7 +86,7 @@ body.insertAdjacentHTML('afterbegin', `<header class="header">
     <div class="keyboard__key">►</div>
     <div class="keyboard__key keyboard__key_right-ctrl">Ctrl</div>
   </div>
-  <div class="keyboard__description">Смена раскладки — Ctrl + Shift (или клик на заголовок)</div>
+  <div class="keyboard__description">Смена раскладки — Ctrl (или клик на заголовок)</div>
   <div class="keyboard__description">Клавиатура создана в системе Windows</div>
 </section>
 </main>`);
@@ -411,10 +411,19 @@ function pressDelete() {
   }
 }
 
+function pressCtrl() {
+  if (isCaps === true) {
+    isCaps = false;
+    document.getElementById('CapsLock').classList.remove('pressed');
+  }
+  toLowerCase();
+  changeLanguage(lang);
+}
+
 // CLICK
 
 key.forEach((el) => el.addEventListener('click', () => {
-  console.log(el.id);
+  //console.log(el.id);
   if (el.className.includes('letter') === true) {
     if (isCaps === false) {
       str += el.innerHTML;
@@ -495,6 +504,10 @@ document.addEventListener('keydown', (event) => {
         addShiftValues();
         isShift = true;
       }
+      if (document.getElementById(event.code).id === 'ControlLeft' || document.getElementById(event.code).id === 'ControlRight') {
+        pressCtrl();
+        console.log('aaa');
+      }
     } else if (event.key === 'ArrowUp') {
       str += '▲';
     } else if (event.key === 'ArrowDown') {
@@ -529,7 +542,6 @@ document.addEventListener('keyup', (event) => {
       document.getElementById(event.code).classList.remove('pressed');
     }
   }
-  console.log(isCaps);
 });
 
 // Temp for checking
