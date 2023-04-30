@@ -280,7 +280,7 @@ const keysArr = [
     id: 'ArrowDown', valueEn: '▼', valueRu: '▼', classEn: 'digit', classRu: 'digit', shiftValueEn: '▼', shiftValueRu: '▼',
   },
   {
-    id: 'Arrowup', valueEn: '►', valueRu: '►', classEn: 'digit', classRu: 'digit', shiftValueEn: '►', shiftValueRu: '►',
+    id: 'ArrowRight', valueEn: '►', valueRu: '►', classEn: 'digit', classRu: 'digit', shiftValueEn: '►', shiftValueRu: '►',
   },
   {
     id: 'ControlRight', valueEn: 'Ctrl', valueRu: 'Ctrl', classEn: 'func', classRu: 'func', shiftValueEn: '', shiftValueRu: '',
@@ -326,7 +326,7 @@ function changeLanguage(language) {
 
 // Add Caps & Shift
 
-const isCaps = false;
+let isCaps = false;
 const isShift = false;
 
 function toUpperCase() {
@@ -389,6 +389,103 @@ function removeShiftValues() {
   }
   toLowerCase();
 }
+
+// Add click on keys
+
+let str = '';
+const input = document.querySelector('.text__textarea');
+
+function pressBackspace() {
+  console.log('str.b=', str);
+  str = str.slice(0, input.selectionStart - 1) + str.slice(input.selectionEnd, str.length);
+  console.log('str.aft=', str);
+}
+
+// CLICK
+
+key.forEach((el) => el.addEventListener('click', () => {
+  console.log(el.id);
+  if (el.className.includes('letter') === true) {
+    if (isCaps === false) {
+      str += el.innerHTML;
+    } else {
+      str += el.innerHTML.toUpperCase();
+    }
+  } else if (el.className.includes('punctuation') === true) {
+    str += el.innerHTML;
+  } else if (el.className.includes('digit') === true) {
+    if (el.id === 'Space') {
+      str += ' ';
+    } else {
+      str += el.innerHTML;
+    }
+  } else if (el.id === 'Backspace') {
+    pressBackspace();
+  } else if (el.id === 'Tab') {
+    str += '    ';
+  } else if (el.id === 'CapsLock') {
+    if (isCaps === false) {
+      toUpperCase();
+      isCaps = true;
+      document.getElementById('CapsLock').classList.add('pressed');
+    } else {
+      toLowerCase();
+      isCaps = false;
+      document.getElementById('CapsLock').classList.remove('pressed');
+    }
+  }
+  input.value = str;
+}));
+
+// KEYBOARD
+
+document.addEventListener('keydown', (event) => {
+  if (document.getElementById(event.code) != null) {
+    document.getElementById(event.code).classList.add('pressed');
+    // console.log(event.key);
+    if (document.getElementById(event.code).className.includes('func') === true) {
+      // console.log('func key');
+      if (document.getElementById(event.code).id === 'Tab') {
+        str += '    ';
+      }
+      if (document.getElementById(event.code).id === 'Backspace') {
+        pressBackspace();
+      } if (document.getElementById(event.code).id === 'CapsLock') {
+        if (isCaps === false) {
+          toUpperCase();
+        } else {
+          toLowerCase();
+        }
+      }
+    } else if (event.key === 'ArrowUp') {
+      str += '▲';
+    } else if (event.key === 'ArrowDown') {
+      str += '▼';
+    } else if (event.key === 'ArrowLeft') {
+      str += '◄';
+    } else if (event.key === 'ArrowRight') {
+      str += '►';
+    } else {
+      str += event.key;
+    }
+    input.value = str;
+  }
+});
+
+document.addEventListener('keyup', (event) => {
+  if (document.getElementById(event.code) != null) {
+    if (document.getElementById(event.code).id !== 'CapsLock') {
+      document.getElementById(event.code).classList.remove('pressed');
+    } else if (isCaps === true) {
+      isCaps = false;
+      document.getElementById(event.code).classList.remove('pressed');
+    } else {
+      isCaps = true;
+      toUpperCase();
+    }
+  }
+  console.log(isCaps);
+});
 
 // Temp for checking
 
