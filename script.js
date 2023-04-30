@@ -86,7 +86,8 @@ body.insertAdjacentHTML('afterbegin', `<header class="header">
     <div class="keyboard__key">►</div>
     <div class="keyboard__key keyboard__key_right-ctrl">Ctrl</div>
   </div>
-  <div class="keyboard__description">Клавиатура создана в системе Windows. Смена раскладки — Ctrl + Shift</div>
+  <div class="keyboard__description">Смена раскладки — Ctrl + Shift (или клик на заголовок)</div>
+  <div class="keyboard__description">Клавиатура создана в системе Windows</div>
 </section>
 </main>`);
 
@@ -327,7 +328,7 @@ function changeLanguage(language) {
 // Add Caps & Shift
 
 let isCaps = false;
-const isShift = false;
+let isShift = false;
 
 function toUpperCase() {
   key.forEach((el) => {
@@ -344,9 +345,6 @@ function toLowerCase() {
     }
   });
 }
-
-toUpperCase();
-toLowerCase();
 
 function addShiftValues() {
   for (let i = 0; i < key.length; i += 1) {
@@ -401,6 +399,18 @@ function pressBackspace() {
   console.log('str.aft=', str);
 }
 
+function pressEnter() {
+  str += '\n';
+}
+
+function pressDelete() {
+  if (input.selectionStart === input.selectionEnd) {
+    pressBackspace();
+  } else {
+    str = str.slice(0, input.selectionStart) + str.slice(input.selectionEnd, str.length);
+  }
+}
+
 // CLICK
 
 key.forEach((el) => el.addEventListener('click', () => {
@@ -423,6 +433,8 @@ key.forEach((el) => el.addEventListener('click', () => {
     pressBackspace();
   } else if (el.id === 'Tab') {
     str += '    ';
+  } else if (el.id === 'Enter') {
+    pressEnter();
   } else if (el.id === 'CapsLock') {
     if (isCaps === false) {
       toUpperCase();
@@ -432,6 +444,20 @@ key.forEach((el) => el.addEventListener('click', () => {
       toLowerCase();
       isCaps = false;
       document.getElementById('CapsLock').classList.remove('pressed');
+    }
+  } else if (el.id === 'Delete') {
+    pressDelete();
+  } else if (el.id === 'ShiftLeft' || el.id === 'ShiftRight') {
+    if (isShift === false) {
+      document.getElementById('ShiftLeft').classList.add('pressed');
+      document.getElementById('ShiftRight').classList.add('pressed');
+      addShiftValues();
+      isShift = true;
+    } else {
+      document.getElementById('ShiftLeft').classList.remove('pressed');
+      document.getElementById('ShiftRight').classList.remove('pressed');
+      removeShiftValues();
+      isShift = false;
     }
   }
   input.value = str;
@@ -457,6 +483,18 @@ document.addEventListener('keydown', (event) => {
           toLowerCase();
         }
       }
+      if (document.getElementById(event.code).id === 'Enter') {
+        pressEnter();
+      }
+      if (document.getElementById(event.code).id === 'Delete') {
+        pressDelete();
+      }
+      if (document.getElementById(event.code).id === 'ShiftLeft' || document.getElementById(event.code).id === 'ShiftRight') {
+        document.getElementById('ShiftLeft').classList.add('pressed');
+        document.getElementById('ShiftRight').classList.add('pressed');
+        addShiftValues();
+        isShift = true;
+      }
     } else if (event.key === 'ArrowUp') {
       str += '▲';
     } else if (event.key === 'ArrowDown') {
@@ -474,14 +512,21 @@ document.addEventListener('keydown', (event) => {
 
 document.addEventListener('keyup', (event) => {
   if (document.getElementById(event.code) != null) {
-    if (document.getElementById(event.code).id !== 'CapsLock') {
-      document.getElementById(event.code).classList.remove('pressed');
-    } else if (isCaps === true) {
-      isCaps = false;
-      document.getElementById(event.code).classList.remove('pressed');
+    if (document.getElementById(event.code).id === 'CapsLock') {
+      if (isCaps === true) {
+        isCaps = false;
+        document.getElementById(event.code).classList.remove('pressed');
+      } else {
+        isCaps = true;
+        toUpperCase();
+      }
+    } else if (document.getElementById(event.code).id === 'ShiftLeft' || document.getElementById(event.code).id === 'ShiftRight') {
+      document.getElementById('ShiftLeft').classList.remove('pressed');
+      document.getElementById('ShiftRight').classList.remove('pressed');
+      removeShiftValues();
+      isShift = false;
     } else {
-      isCaps = true;
-      toUpperCase();
+      document.getElementById(event.code).classList.remove('pressed');
     }
   }
   console.log(isCaps);
