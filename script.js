@@ -288,12 +288,28 @@ const keysArr = [
   },
 ];
 
-let lang = 'En';
+// Set lang
+
+let lang = localStorage.getItem('lang');
+
+if (lang === undefined) {
+  lang = 'En';
+}
+
+function setLocalStorage() {
+  localStorage.setItem('lang', lang);
+}
+
+window.addEventListener('beforeunload', setLocalStorage);
+
+// Set keys
+
 // const str = '';
 let key = document.querySelectorAll('.keyboard__key');
 // const input = document.querySelector('.text__textarea');
 
 function setKeys(language) {
+  console.log('func lang=', lang);
   if (language === 'En') {
     for (let i = 0; i < key.length; i += 1) {
       key[i].innerHTML = keysArr[i].valueEn;
@@ -312,7 +328,7 @@ function setKeys(language) {
     }
   }
 }
-
+console.log('lang=', lang);
 setKeys(lang);
 
 function changeLanguage(language) {
@@ -423,7 +439,7 @@ function pressCtrl() {
 // CLICK
 
 key.forEach((el) => el.addEventListener('click', () => {
-  //console.log(el.id);
+  // console.log(el.id);
   if (el.className.includes('letter') === true) {
     if (isCaps === false) {
       str += el.innerHTML;
@@ -516,8 +532,11 @@ document.addEventListener('keydown', (event) => {
       str += '◄';
     } else if (event.key === 'ArrowRight') {
       str += '►';
+    } else if (event.code === 'Space') {
+      str += ' ';
     } else {
-      str += event.key;
+      console.log(event.key);
+      str += document.getElementById(event.code).innerHTML;
     }
     input.value = str;
   }

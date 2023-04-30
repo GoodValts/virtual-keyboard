@@ -70,6 +70,7 @@ body {
 .keyboard__key:active {
   background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
   color: LimeGreen;
+  transform: scale(0.95);
 }
 
 .keyboard__key_tab,
@@ -112,6 +113,7 @@ body {
 .pressed {
   background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
   color: LimeGreen;
+  transform: scale(0.95);
 }
 
 .toUpperCase {
