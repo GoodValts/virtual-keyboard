@@ -21,7 +21,7 @@ body.insertAdjacentHTML('afterbegin', `<header class="header">
     <div class="keyboard__key"></div>
     <div class="keyboard__key"></div>
     <div class="keyboard__key"></div>
-    <div class="keyboard__key">+</div>
+    <div class="keyboard__key"></div>
     <div class="keyboard__key keyboard__key_backspace"></div>
   </div>
   <div class="keyboard__row">
