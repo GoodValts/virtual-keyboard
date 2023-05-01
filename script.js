@@ -380,7 +380,12 @@ function addShiftValues() {
       }
     }
   }
-  toUpperCase();
+  if (isCaps === false) {
+    toUpperCase();
+  } else {
+    toLowerCase();
+  }
+  isShift = true;
 }
 
 function removeShiftValues() {
@@ -401,7 +406,12 @@ function removeShiftValues() {
       }
     }
   }
-  toLowerCase();
+  if (isCaps === false) {
+    toLowerCase();
+  } else {
+    toUpperCase();
+  }
+  isShift = false;
 }
 
 // Add click on keys
@@ -409,22 +419,76 @@ function removeShiftValues() {
 let str = '';
 const input = document.querySelector('.text__textarea');
 
+function pressKey(event) {
+  const strStart = str.slice(0, input.selectionStart);
+  const keyPressed = document.getElementById(event.code).innerHTML;
+  const strEnd = str.slice(input.selectionEnd, str.length);
+  console.log('---');
+  console.log(event.code);
+  console.log('str before=', str);
+  console.log('str.l=', str.length);
+  console.log('input.selectionStart=', input.selectionStart);
+  console.log('input.selectionEnd=', input.selectionEnd);
+  console.log('str.slice start=', str.slice(0, input.selectionStart));
+  console.log('str.slice end=', str.slice(input.selectionEnd, str.length));
+  if (document.getElementById(event.code).id === 'Space') {
+    const space = ' ';
+    str = strStart + space + strEnd;
+  } else if (document.getElementById(event.code).id === 'Enter') {
+    const paragraph = '\n';
+    str = strStart + paragraph + strEnd;
+  } else if (document.getElementById(event.code).id === 'Tab') {
+    const tab = '  ';
+    str = strStart + tab + strEnd;
+  } else if (document.getElementById(event.code).innerHTML === '&amp;') {
+    str = strStart + keysArr[7].shiftValueEn + strEnd;
+  } else if (document.getElementById(event.code).innerHTML === '&lt;') {
+    str = strStart + keysArr[49].shiftValueEn + strEnd;
+  } else if (document.getElementById(event.code).innerHTML === '&gt;') {
+    str = strStart + keysArr[50].shiftValueEn + strEnd;
+  } else if (document.getElementById(event.code).innerHTML === 'ArrowUp') {
+    str = strStart + keysArr[52].shiftValueEn + strEnd;
+  } else if (document.getElementById(event.code).innerHTML === 'ArrowDown') {
+    str = strStart + keysArr[60].shiftValueEn + strEnd;
+  } else if (document.getElementById(event.code).innerHTML === 'ArrowLeft') {
+    str = strStart + keysArr[61].shiftValueEn + strEnd;
+  } else if (document.getElementById(event.code).innerHTML === 'ArrowRight') {
+    str = strStart + keysArr[62].shiftValueEn + strEnd;
+  } else {
+    if (isCaps === false && isShift === false) {
+      str = strStart + keyPressed + str.slice(input.selectionEnd, str.length);
+    }
+    if (isCaps === true && isShift === false) {
+      str = strStart + keyPressed.toUpperCase() + strEnd;
+    }
+    if (isCaps === false && isShift === true) {
+      str = strStart + keyPressed.toUpperCase() + strEnd;
+    }
+    if (isCaps === true && isShift === true) {
+      str = strStart + keyPressed + strEnd;
+    }
+  }
+  console.log('str after=', str);
+}
+
 function pressBackspace() {
   console.log('str.b=', str);
-  str = str.slice(0, input.selectionStart - 1) + str.slice(input.selectionEnd, str.length);
-  console.log('str.aft=', str);
-}
-
-function pressEnter() {
-  str += '\n';
-}
-
-function pressDelete() {
   if (input.selectionStart === input.selectionEnd) {
-    pressBackspace();
+    str = str.slice(0, input.selectionStart - 1) + str.slice(input.selectionEnd, str.length);
   } else {
     str = str.slice(0, input.selectionStart) + str.slice(input.selectionEnd, str.length);
   }
+  console.log('str.aft=', str);
+}
+
+function pressDelete() {
+  console.log('str.b=', str);
+  if (input.selectionStart === input.selectionEnd) {
+    str = str.slice(0, input.selectionStart) + str.slice(input.selectionEnd + 1, str.length);
+  } else {
+    pressBackspace();
+  }
+  console.log('str.aft=', str);
 }
 
 function pressCtrl() {
@@ -458,8 +522,6 @@ key.forEach((el) => el.addEventListener('click', () => {
     pressBackspace();
   } else if (el.id === 'Tab') {
     str += '    ';
-  } else if (el.id === 'Enter') {
-    pressEnter();
   } else if (el.id === 'CapsLock') {
     if (isCaps === false) {
       toUpperCase();
@@ -486,6 +548,8 @@ key.forEach((el) => el.addEventListener('click', () => {
     }
   }
   input.value = str;
+  console.log('str=', str);
+  console.log('str.l=', str.length);
 }));
 
 // KEYBOARD
@@ -496,48 +560,47 @@ document.addEventListener('keydown', (event) => {
     // console.log(event.key);
     if (document.getElementById(event.code).className.includes('func') === true) {
       // console.log('func key');
-      if (document.getElementById(event.code).id === 'Tab') {
-        str += '    ';
+      if (document.getElementById(event.code).id === 'Tab' || document.getElementById(event.code).id === 'Enter') {
+        event.preventDefault();
+        pressKey(event);
       }
       if (document.getElementById(event.code).id === 'Backspace') {
         pressBackspace();
       } if (document.getElementById(event.code).id === 'CapsLock') {
-        if (isCaps === false) {
+        if (isCaps === false && isShift === false) {
           toUpperCase();
-        } else {
+          isCaps = true;
+        } else if (isCaps === true && isShift === false) {
           toLowerCase();
+          isCaps = false;
+        } else if (isCaps === false && isShift === true) {
+          toLowerCase();
+          isCaps = true;
+        } else if (isCaps === true && isShift === true) {
+          toUpperCase();
+          isCaps = false;
         }
-      }
-      if (document.getElementById(event.code).id === 'Enter') {
-        pressEnter();
-      }
-      if (document.getElementById(event.code).id === 'Delete') {
+      } if (document.getElementById(event.code).id === 'Delete') {
         pressDelete();
       }
       if (document.getElementById(event.code).id === 'ShiftLeft' || document.getElementById(event.code).id === 'ShiftRight') {
+        event.preventDefault();
         document.getElementById('ShiftLeft').classList.add('pressed');
         document.getElementById('ShiftRight').classList.add('pressed');
         addShiftValues();
         isShift = true;
       }
       if (document.getElementById(event.code).id === 'ControlLeft' || document.getElementById(event.code).id === 'ControlRight') {
+        event.preventDefault();
         pressCtrl();
-        console.log('aaa');
       }
-    } else if (event.key === 'ArrowUp') {
-      str += '▲';
-    } else if (event.key === 'ArrowDown') {
-      str += '▼';
-    } else if (event.key === 'ArrowLeft') {
-      str += '◄';
-    } else if (event.key === 'ArrowRight') {
-      str += '►';
-    } else if (event.code === 'Space') {
-      str += ' ';
+      if (document.getElementById(event.code).id === 'AltLeft' || document.getElementById(event.code).id === 'AltRight') {
+        event.preventDefault();
+      }
     } else {
-      console.log(event.key);
-      str += document.getElementById(event.code).innerHTML;
+      pressKey(event);
     }
+    console.log('str after=', str);
     input.value = str;
   }
 });
@@ -545,12 +608,8 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keyup', (event) => {
   if (document.getElementById(event.code) != null) {
     if (document.getElementById(event.code).id === 'CapsLock') {
-      if (isCaps === true) {
-        isCaps = false;
+      if (isCaps === false) {
         document.getElementById(event.code).classList.remove('pressed');
-      } else {
-        isCaps = true;
-        toUpperCase();
       }
     } else if (document.getElementById(event.code).id === 'ShiftLeft' || document.getElementById(event.code).id === 'ShiftRight') {
       document.getElementById('ShiftLeft').classList.remove('pressed');
@@ -574,3 +633,10 @@ const chkCaps = document.querySelector('.keyboard__description');
 chkCaps.addEventListener('click', () => {
   addShiftValues();
 });
+
+function setStr() {
+  input.value = str;
+  setTimeout(setStr, 10);
+}
+
+setStr();
