@@ -1,7 +1,3 @@
-// Add keyboard
-
-// Add blocks
-
 const body = document.querySelector('body');
 
 body.insertAdjacentHTML('afterbegin', `<header class="header">
@@ -13,85 +9,83 @@ body.insertAdjacentHTML('afterbegin', `<header class="header">
 </section>
 <section class="keyboard">
   <div class="keyboard__row">
-    <div class="keyboard__key">\`</div>
-    <div class="keyboard__key">1</div>
-    <div class="keyboard__key">2</div>
-    <div class="keyboard__key">3</div>
-    <div class="keyboard__key">4</div>
-    <div class="keyboard__key">5</div>
-    <div class="keyboard__key">6</div>
-    <div class="keyboard__key">7</div>
-    <div class="keyboard__key">8</div>
-    <div class="keyboard__key">9</div>
-    <div class="keyboard__key">0</div>
-    <div class="keyboard__key">-</div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
     <div class="keyboard__key">+</div>
-    <div class="keyboard__key keyboard__key_backspace">Backspace</div>
+    <div class="keyboard__key keyboard__key_backspace"></div>
   </div>
   <div class="keyboard__row">
-    <div class="keyboard__key keyboard__key_tab">Tab</div>
-    <div class="keyboard__key">й</div>
-    <div class="keyboard__key">у</div>
-    <div class="keyboard__key">3</div>
-    <div class="keyboard__key">4</div>
-    <div class="keyboard__key">5</div>
-    <div class="keyboard__key">6</div>
-    <div class="keyboard__key">7</div>
-    <div class="keyboard__key">8</div>
-    <div class="keyboard__key">9</div>
-    <div class="keyboard__key">0</div>
-    <div class="keyboard__key">-</div>
-    <div class="keyboard__key">+</div>
-    <div class="keyboard__key keyboard__key_slash">/</div>
+    <div class="keyboard__key keyboard__key_tab"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key keyboard__key_slash"></div>
   </div>
   <div class="keyboard__row">
-    <div class="keyboard__key keyboard__key_caps">Caps</div>
-    <div class="keyboard__key">й</div>
-    <div class="keyboard__key">у</div>
-    <div class="keyboard__key">3</div>
-    <div class="keyboard__key">4</div>
-    <div class="keyboard__key">5</div>
-    <div class="keyboard__key">6</div>
-    <div class="keyboard__key">7</div>
-    <div class="keyboard__key">8</div>
-    <div class="keyboard__key">9</div>
-    <div class="keyboard__key">0</div>
-    <div class="keyboard__key">-</div>
-    <div class="keyboard__key keyboard__key_enter">Enter</div>
+    <div class="keyboard__key keyboard__key_caps"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key keyboard__key_enter"></div>
   </div>
   <div class="keyboard__row">
-    <div class="keyboard__key keyboard__key_left-shift">Shift</div>
-    <div class="keyboard__key">й</div>
-    <div class="keyboard__key">у</div>
-    <div class="keyboard__key">3</div>
-    <div class="keyboard__key">4</div>
-    <div class="keyboard__key">5</div>
-    <div class="keyboard__key">6</div>
-    <div class="keyboard__key">7</div>
-    <div class="keyboard__key">8</div>
-    <div class="keyboard__key">9</div>
-    <div class="keyboard__key">0</div>
-    <div class="keyboard__key">▲</div>
-    <div class="keyboard__key keyboard__key_right-shift">Shift</div>
+    <div class="keyboard__key keyboard__key_left-shift"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key keyboard__key_right-shift"></div>
   </div>
   <div class="keyboard__row">
-    <div class="keyboard__key keyboard__key_left-ctrl">Ctrl</div>
-    <div class="keyboard__key keyboard__key_left-win">⊞</div>
-    <div class="keyboard__key keyboard__key_left-alt">Alt</div>
-    <div class="keyboard__key keyboard__key_space">RSS Virtual Keyboard</div>
-    <div class="keyboard__key keyboard__key_delete">Del</div>
-    <div class="keyboard__key keyboard__key_right-alt">Alt</div>
-    <div class="keyboard__key">◄</div>
-    <div class="keyboard__key">▼</div>
-    <div class="keyboard__key">►</div>
-    <div class="keyboard__key keyboard__key_right-ctrl">Ctrl</div>
+    <div class="keyboard__key keyboard__key_left-ctrl"></div>
+    <div class="keyboard__key keyboard__key_left-win"></div>
+    <div class="keyboard__key keyboard__key_left-alt"></div>
+    <div class="keyboard__key keyboard__key_space"></div>
+    <div class="keyboard__key keyboard__key_delete"></div>
+    <div class="keyboard__key keyboard__key_right-alt"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key"></div>
+    <div class="keyboard__key keyboard__key_right-ctrl"></div>
   </div>
-  <div class="keyboard__description">Смена раскладки — Ctrl</div>
+  <div class="keyboard__description">Смена раскладки — Ctrl + Shift или клик по Ctrl</div>
   <div class="keyboard__description">Клавиатура создана в системе Windows</div>
 </section>
 </main>`);
-
-// Add values
 
 const keysArr = [
   {
@@ -288,8 +282,6 @@ const keysArr = [
   },
 ];
 
-// Set lang
-
 let lang = localStorage.getItem('lang');
 
 if (lang === undefined) {
@@ -302,11 +294,7 @@ function setLocalStorage() {
 
 window.addEventListener('beforeunload', setLocalStorage);
 
-// Set keys
-
-// const str = '';
 let key = document.querySelectorAll('.keyboard__key');
-// const input = document.querySelector('.text__textarea');
 
 function setKeys(language) {
   if (language === 'En') {
@@ -340,10 +328,9 @@ function changeLanguage(language) {
   }
 }
 
-// Add Caps & Shift
-
 let isCaps = false;
 let isShift = false;
+let isCtrl = false;
 
 function toUpperCase() {
   key.forEach((el) => {
@@ -413,8 +400,6 @@ function removeShiftValues() {
   isShift = false;
 }
 
-// Add click on keys
-
 let str = '';
 const input = document.querySelector('.text__textarea');
 
@@ -478,18 +463,18 @@ function pressDelete() {
 }
 
 function pressCtrl() {
-  if (isCaps === true) {
+  if (isCaps === true || isShift === true) {
     isCaps = false;
+    isShift = false;
+    document.getElementById('ShiftLeft').classList.remove('pressed');
+    document.getElementById('ShiftRight').classList.remove('pressed');
     document.getElementById('CapsLock').classList.remove('pressed');
   }
   toLowerCase();
   changeLanguage(lang);
 }
 
-// CLICK
-
 key.forEach((el) => el.addEventListener('click', () => {
-  // console.log(el.id);
   const strStart = str.slice(0, input.selectionStart);
   const strEnd = str.slice(input.selectionEnd, str.length);
   if (el.className.includes('letter') === true) {
@@ -557,19 +542,16 @@ key.forEach((el) => el.addEventListener('click', () => {
       isShift = false;
     }
   } else if (el.id === 'ControlLeft' || el.id === 'ControlRight') {
-    changeLanguage(lang);
+    pressCtrl();
   }
   input.value = str;
 }));
 
-// KEYBOARD
-
 document.addEventListener('keydown', (event) => {
+  event.preventDefault();
   if (document.getElementById(event.code) != null) {
     document.getElementById(event.code).classList.add('pressed');
-    // console.log(event.key);
     if (document.getElementById(event.code).className.includes('func') === true) {
-      // console.log('func key');
       if (document.getElementById(event.code).id === 'Tab' || document.getElementById(event.code).id === 'Enter') {
         event.preventDefault();
         pressKey(event);
@@ -595,14 +577,18 @@ document.addEventListener('keydown', (event) => {
       }
       if (document.getElementById(event.code).id === 'ShiftLeft' || document.getElementById(event.code).id === 'ShiftRight') {
         event.preventDefault();
-        document.getElementById('ShiftLeft').classList.add('pressed');
-        document.getElementById('ShiftRight').classList.add('pressed');
-        addShiftValues();
-        isShift = true;
+        if (isCtrl === true) {
+          pressCtrl();
+        } else {
+          document.getElementById('ShiftLeft').classList.add('pressed');
+          document.getElementById('ShiftRight').classList.add('pressed');
+          addShiftValues();
+          isShift = true;
+        }
       }
       if (document.getElementById(event.code).id === 'ControlLeft' || document.getElementById(event.code).id === 'ControlRight') {
         event.preventDefault();
-        pressCtrl();
+        isCtrl = true;
       }
       if (document.getElementById(event.code).id === 'AltLeft' || document.getElementById(event.code).id === 'AltRight') {
         event.preventDefault();
@@ -615,6 +601,7 @@ document.addEventListener('keydown', (event) => {
 });
 
 document.addEventListener('keyup', (event) => {
+  event.preventDefault();
   if (document.getElementById(event.code) != null) {
     if (document.getElementById(event.code).id === 'CapsLock') {
       if (isCaps === false) {
@@ -625,17 +612,13 @@ document.addEventListener('keyup', (event) => {
       document.getElementById('ShiftRight').classList.remove('pressed');
       removeShiftValues();
       isShift = false;
+    } else if (document.getElementById(event.code).id === 'ControlLeft' || document.getElementById(event.code).id === 'ControlRight') {
+      isCtrl = false;
+      document.getElementById(event.code).classList.remove('pressed');
     } else {
       document.getElementById(event.code).classList.remove('pressed');
     }
   }
-});
-
-// Temp for checking
-
-const cnglng = document.querySelector('.header');
-cnglng.addEventListener('click', () => {
-  changeLanguage(lang);
 });
 
 function setStr() {
