@@ -86,7 +86,7 @@ body.insertAdjacentHTML('afterbegin', `<header class="header">
     <div class="keyboard__key">►</div>
     <div class="keyboard__key keyboard__key_right-ctrl">Ctrl</div>
   </div>
-  <div class="keyboard__description">Смена раскладки — Ctrl (или клик на заголовок)</div>
+  <div class="keyboard__description">Смена раскладки — Ctrl</div>
   <div class="keyboard__description">Клавиатура создана в системе Windows</div>
 </section>
 </main>`);
@@ -309,7 +309,6 @@ let key = document.querySelectorAll('.keyboard__key');
 // const input = document.querySelector('.text__textarea');
 
 function setKeys(language) {
-  console.log('func lang=', lang);
   if (language === 'En') {
     for (let i = 0; i < key.length; i += 1) {
       key[i].innerHTML = keysArr[i].valueEn;
@@ -328,7 +327,7 @@ function setKeys(language) {
     }
   }
 }
-console.log('lang=', lang);
+
 setKeys(lang);
 
 function changeLanguage(language) {
@@ -423,14 +422,6 @@ function pressKey(event) {
   const strStart = str.slice(0, input.selectionStart);
   const keyPressed = document.getElementById(event.code).innerHTML;
   const strEnd = str.slice(input.selectionEnd, str.length);
-  console.log('---');
-  console.log(event.code);
-  console.log('str before=', str);
-  console.log('str.l=', str.length);
-  console.log('input.selectionStart=', input.selectionStart);
-  console.log('input.selectionEnd=', input.selectionEnd);
-  console.log('str.slice start=', str.slice(0, input.selectionStart));
-  console.log('str.slice end=', str.slice(input.selectionEnd, str.length));
   if (document.getElementById(event.code).id === 'Space') {
     const space = ' ';
     str = strStart + space + strEnd;
@@ -468,27 +459,22 @@ function pressKey(event) {
       str = strStart + keyPressed + strEnd;
     }
   }
-  console.log('str after=', str);
 }
 
 function pressBackspace() {
-  console.log('str.b=', str);
   if (input.selectionStart === input.selectionEnd) {
     str = str.slice(0, input.selectionStart - 1) + str.slice(input.selectionEnd, str.length);
   } else {
     str = str.slice(0, input.selectionStart) + str.slice(input.selectionEnd, str.length);
   }
-  console.log('str.aft=', str);
 }
 
 function pressDelete() {
-  console.log('str.b=', str);
   if (input.selectionStart === input.selectionEnd) {
     str = str.slice(0, input.selectionStart) + str.slice(input.selectionEnd + 1, str.length);
   } else {
     pressBackspace();
   }
-  console.log('str.aft=', str);
 }
 
 function pressCtrl() {
@@ -504,31 +490,55 @@ function pressCtrl() {
 
 key.forEach((el) => el.addEventListener('click', () => {
   // console.log(el.id);
+  const strStart = str.slice(0, input.selectionStart);
+  const strEnd = str.slice(input.selectionEnd, str.length);
   if (el.className.includes('letter') === true) {
-    if (isCaps === false) {
-      str += el.innerHTML;
+    if (isCaps === false && isShift === false) {
+      str = strStart + el.innerHTML + strEnd;
+    } else if (isCaps === true && isShift === false) {
+      str = strStart + el.innerHTML.toUpperCase() + strEnd;
+    } else if (isCaps === true && isShift === true) {
+      str = strStart + el.innerHTML + strEnd;
     } else {
-      str += el.innerHTML.toUpperCase();
+      str = strStart + el.innerHTML.toUpperCase() + strEnd;
     }
   } else if (el.className.includes('punctuation') === true) {
-    str += el.innerHTML;
+    if (el.innerHTML === '&lt;') {
+      str = strStart + keysArr[49].shiftValueEn + strEnd;
+    } else if (el.innerHTML === '&gt;') {
+      str = strStart + keysArr[50].shiftValueEn + strEnd;
+    } else {
+      str = strStart + el.innerHTML + strEnd;
+    }
   } else if (el.className.includes('digit') === true) {
     if (el.id === 'Space') {
-      str += ' ';
+      const space = ' ';
+      str = strStart + space + strEnd;
+    } else if (el.innerHTML === '&amp;') {
+      str = strStart + keysArr[7].shiftValueEn + strEnd;
     } else {
-      str += el.innerHTML;
+      str = strStart + el.innerHTML + strEnd;
     }
   } else if (el.id === 'Backspace') {
     pressBackspace();
   } else if (el.id === 'Tab') {
-    str += '    ';
+    const tab = '  ';
+    str += strStart + tab + strEnd;
   } else if (el.id === 'CapsLock') {
-    if (isCaps === false) {
+    if (isCaps === false && isShift === false) {
       toUpperCase();
       isCaps = true;
       document.getElementById('CapsLock').classList.add('pressed');
-    } else {
+    } else if (isCaps === true && isShift === false) {
       toLowerCase();
+      isCaps = false;
+      document.getElementById('CapsLock').classList.remove('pressed');
+    } else if (isCaps === false && isShift === true) {
+      toLowerCase();
+      isCaps = true;
+      document.getElementById('CapsLock').classList.add('pressed');
+    } else {
+      toUpperCase();
       isCaps = false;
       document.getElementById('CapsLock').classList.remove('pressed');
     }
@@ -546,10 +556,10 @@ key.forEach((el) => el.addEventListener('click', () => {
       removeShiftValues();
       isShift = false;
     }
+  } else if (el.id === 'ControlLeft' || el.id === 'ControlRight') {
+    changeLanguage(lang);
   }
   input.value = str;
-  console.log('str=', str);
-  console.log('str.l=', str.length);
 }));
 
 // KEYBOARD
@@ -600,7 +610,6 @@ document.addEventListener('keydown', (event) => {
     } else {
       pressKey(event);
     }
-    console.log('str after=', str);
     input.value = str;
   }
 });
@@ -627,11 +636,6 @@ document.addEventListener('keyup', (event) => {
 const cnglng = document.querySelector('.header');
 cnglng.addEventListener('click', () => {
   changeLanguage(lang);
-});
-
-const chkCaps = document.querySelector('.keyboard__description');
-chkCaps.addEventListener('click', () => {
-  addShiftValues();
 });
 
 function setStr() {
