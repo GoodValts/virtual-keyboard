@@ -1,5 +1,5 @@
 const body = document.querySelector('body');
-
+console.log('log1');
 body.insertAdjacentHTML('afterbegin', `<header class="header">
 <h1>Virtual keyboard</h1>
 </header>
@@ -86,7 +86,7 @@ body.insertAdjacentHTML('afterbegin', `<header class="header">
   <div class="keyboard__description">Клавиатура создана в системе Windows</div>
 </section>
 </main>`);
-
+console.log('log2');
 const keysArr = [
   {
     id: 'Backquote', valueEn: '`', valueRu: 'ё', classEn: 'punctuation', classRu: 'letter', shiftValueEn: '~', shiftValueRu: '',
@@ -281,21 +281,21 @@ const keysArr = [
     id: 'ControlRight', valueEn: 'Ctrl', valueRu: 'Ctrl', classEn: 'func', classRu: 'func', shiftValueEn: '', shiftValueRu: '',
   },
 ];
-
+console.log('log3');
 let lang = localStorage.getItem('lang');
-
+console.log('log4');
 if (lang === undefined) {
   lang = 'En';
 }
-
+console.log('log5');
 function setLocalStorage() {
   localStorage.setItem('lang', lang);
 }
-
+console.log('log6');
 window.addEventListener('beforeunload', setLocalStorage);
-
+console.log('log7');
 let key = document.querySelectorAll('.keyboard__key');
-
+console.log('log8');
 function setKeys(language) {
   if (language === 'En') {
     for (let i = 0; i < key.length; i += 1) {
@@ -315,9 +315,9 @@ function setKeys(language) {
     }
   }
 }
-
+console.log('log9');
 setKeys(lang);
-
+console.log('log10');
 function changeLanguage(language) {
   if (language === 'Ru') {
     lang = 'En';
@@ -327,11 +327,11 @@ function changeLanguage(language) {
     setKeys(lang);
   }
 }
-
+console.log('log11');
 let isCaps = false;
 let isShift = false;
 let isCtrl = false;
-
+console.log('log12');
 function toUpperCase() {
   key.forEach((el) => {
     if (el.className.includes('letter') === true) {
