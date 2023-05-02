@@ -1,9 +1,5 @@
 node_modules/
-.eslintrc.js
-package-lock.json
-package.json
+drafts/
 styles.css.map
 styles.scss
-script2.js
-script3.js
 keysArr.xlsx
