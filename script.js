@@ -512,10 +512,6 @@ key.forEach((el) => el.addEventListener('click', () => {
   } else if (el.id === 'Tab') {
     const tab = '  ';
     str = strStart + tab + strEnd;
-    console.log(strStart);
-    console.log(strEnd);
-    console.log(tab);
-    console.log(str);
   } else if (el.id === 'CapsLock') {
     if (isCaps === false && isShift === false) {
       toUpperCase();
