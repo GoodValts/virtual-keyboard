@@ -10,7 +10,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  ignorePatterns: ['script2.js', 'script3.js'],
+  ignorePatterns: [],
   rules: {
   },
 };
