@@ -480,6 +480,8 @@ function pressCtrl() {
 key.forEach((el) => el.addEventListener('click', () => {
   const strStart = str.slice(0, input.selectionStart);
   const strEnd = str.slice(input.selectionEnd, str.length);
+  const strSelectionStart = input.selectionStart;
+  const strSelectionEnd = input.selectionEnd;
   if (el.className.includes('letter') === true) {
     if (isCaps === false && isShift === false) {
       str = strStart + el.innerHTML + strEnd;
@@ -551,9 +553,26 @@ key.forEach((el) => el.addEventListener('click', () => {
     pressCtrl();
   }
   input.value = str;
+  let numbOfSymbols;
+  if (el.id === 'Tab') {
+    numbOfSymbols = 2;
+  } else if (el.id === 'Enter' || el.className.includes('letter') || el.className.includes('digit') || el.className.includes('punctuation')) {
+    numbOfSymbols = 1;
+  } else if (el.id === 'Backspace' && strSelectionStart === strSelectionEnd) {
+    numbOfSymbols = -1;
+  } else {
+    numbOfSymbols = 0;
+  }
+  if (strSelectionStart === strSelectionEnd) {
+    input.setSelectionRange(strSelectionStart + numbOfSymbols, strSelectionEnd + numbOfSymbols);
+  } else {
+    input.setSelectionRange(strSelectionStart + numbOfSymbols, strSelectionStart + numbOfSymbols);
+  }
 }));
 
 document.addEventListener('keydown', (event) => {
+  const strSelectionStart = input.selectionStart;
+  const strSelectionEnd = input.selectionEnd;
   event.preventDefault();
   if (document.getElementById(event.code) != null) {
     document.getElementById(event.code).classList.add('pressed');
@@ -603,6 +622,21 @@ document.addEventListener('keydown', (event) => {
       pressKey(event);
     }
     input.value = str;
+    let numbOfSymbols;
+    if (event.code === 'Tab') {
+      numbOfSymbols = 2;
+    } else if (event.code === 'Enter' || document.getElementById(event.code).className.includes('letter') || document.getElementById(event.code).className.includes('digit') || document.getElementById(event.code).className.includes('punctuation')) {
+      numbOfSymbols = 1;
+    } else if (event.code === 'Backspace' && strSelectionStart === strSelectionEnd) {
+      numbOfSymbols = -1;
+    } else {
+      numbOfSymbols = 0;
+    }
+    if (strSelectionStart === strSelectionEnd) {
+      input.setSelectionRange(strSelectionStart + numbOfSymbols, strSelectionEnd + numbOfSymbols);
+    } else {
+      input.setSelectionRange(strSelectionStart + numbOfSymbols, strSelectionStart + numbOfSymbols);
+    }
   }
 });
 
