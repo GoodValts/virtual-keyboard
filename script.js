@@ -284,6 +284,12 @@ const keysArr = [
 
 let lang = localStorage.getItem('lang');
 
+if (lang !== 'En') {
+  if (lang !== 'Ru') {
+    lang = 'En';
+  }
+}
+
 let isCaps = false;
 let isShift = false;
 let isCtrl = false;
