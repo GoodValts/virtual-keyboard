@@ -284,11 +284,9 @@ const keysArr = [
 
 let lang = localStorage.getItem('lang');
 
-if (lang !== 'En') {
-  if (lang !== 'Ru') {
-    lang = 'En';
-  }
-}
+let isCaps = false;
+let isShift = false;
+let isCtrl = false;
 
 function setLocalStorage() {
   localStorage.setItem('lang', lang);
@@ -330,10 +328,6 @@ function changeLanguage(language) {
     setKeys(lang);
   }
 }
-
-let isCaps = false;
-let isShift = false;
-let isCtrl = false;
 
 function toUpperCase() {
   key.forEach((el) => {
@@ -467,7 +461,6 @@ function pressDelete() {
 
 function pressCtrl() {
   if (isCaps === true || isShift === true) {
-    isCaps = false;
     isShift = false;
     document.getElementById('ShiftLeft').classList.remove('pressed');
     document.getElementById('ShiftRight').classList.remove('pressed');
@@ -475,6 +468,12 @@ function pressCtrl() {
   }
   toLowerCase();
   changeLanguage(lang);
+  if (isCaps === true) {
+    toUpperCase();
+    document.getElementById('CapsLock').classList.add('pressed');
+  } else {
+    isCaps = false;
+  }
 }
 
 key.forEach((el) => el.addEventListener('click', () => {
@@ -568,6 +567,7 @@ key.forEach((el) => el.addEventListener('click', () => {
   } else {
     input.setSelectionRange(strSelectionStart + numbOfSymbols, strSelectionStart + numbOfSymbols);
   }
+  input.focus();
 }));
 
 document.addEventListener('keydown', (event) => {
@@ -637,6 +637,7 @@ document.addEventListener('keydown', (event) => {
     } else {
       input.setSelectionRange(strSelectionStart + numbOfSymbols, strSelectionStart + numbOfSymbols);
     }
+    input.focus();
   }
 });
 

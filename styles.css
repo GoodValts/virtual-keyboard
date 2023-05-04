@@ -30,6 +30,11 @@ body {
   border-radius: calc(0.1 * 0.05 * (40vw + 172px));
   background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
 }
+.text__textarea:focus {
+  outline: none;
+  color: #6991c7;
+  border: 1px solid #accbee;
+}
 
 .keyboard {
   width: calc(13 * 0.05 * (40vw + 172px) + 28 * 0.1 * 0.05 * (40vw + 172px) + 2 * 0.05 * (40vw + 172px) + 0.1 * 0.05 * (40vw + 172px));
@@ -119,3 +124,5 @@ body {
 .toUpperCase {
   text-transform: uppercase;
 }
+
+/*# sourceMappingURL=styles.css.map */
